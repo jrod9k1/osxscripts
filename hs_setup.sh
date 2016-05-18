@@ -41,6 +41,7 @@ echo
 teacher_name_last=$(echo $teacher_name | rev | cut -d' ' -f 1 | rev)
 echo "[DEBUG] The teacher's last name is $teacher_name_last"
 
+# Set the hostname to locCode-lastName
 echo "[DEBUG] Setting hostname to $loc_code-$teacher_name_last"
 scutil --set HostName $loc_code-$teacher_name_last
 
@@ -70,15 +71,18 @@ dscl . create /Users/"$teacher_username" PrimaryGroupID 80
 dscl . create /Users/"$teacher_username" UserShell /bin/bash
 dscl . create /Users/"$teacher_username" NFSHome/Directory /Users/"$teacher_username"
 cp -R /System/Library/User\ Template/English.lproj /Users/"$teacher_username"
-chown -R "$teacher_username":staff /Users/"$teacher_username"
+chown -R "$NextID":staff /Users/"$teacher_username"
 
 # Setup the user's dock
 wget http://jrod.mx/hs/com.apple.dock.plist -O /Users/"$teacher_username"/Library/Preferences/com.apple.dock.plist
+chown "$teacher_username":staff /Users/"$teacher_username"/Library/Preferences/com.apple.dock.plist
 
 # Run MS serializer
-installer -pkg /Users/Teacher/Desktop/Support/Microsoft_Office_2016_VL_Serializer.pkg -target /
+echo "[DEBUG] Running M$ serializier"
+#installer -pkg /Users/Teacher/Desktop/Support/Microsoft_Office_2016_VL_Serializer.pkg -target /
 
 
 # Switch to the new created user
+echo "[DEBUG] Copying user's new dock configuration"
 /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -switchToUserID $NextID
 
