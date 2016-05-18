@@ -37,12 +37,12 @@ echo
 echo "[DEBUG] You entered $teacher_name for the name and $loc_code for the location code"
 echo
 
-# Split up the teacher's name
+# Give me the teacher's last name
 teacher_name_last=$(echo $teacher_name | rev | cut -d' ' -f 1 | rev)
 echo "[DEBUG] The teacher's last name is $teacher_name_last"
 
 echo "[DEBUG] Setting hostname to $loc_code-$teacher_name_last"
-#scutil --set HostName $loc_code-$teacher_name_last
+scutil --set HostName $loc_code-$teacher_name_last
 
 # Ggrab the first letter of the teacher's first name for use in username
 teacher_name_firstletter=${teacher_name:0:1}
@@ -71,4 +71,7 @@ dscl . create /Users/"$teacher_username" UserShell /bin/bash
 dscl . create /Users/"$teacher_username" NFSHome/Directory /Users/"$teacher_username"
 cp -R /System/Library/User\ Template/English.lproj /Users/"$teacher_username"
 chown -R "$teacher_username":staff /Users/"$teacher_username"
+
+# Switch to the new created user
+/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -switchToUserID $NextID
 
