@@ -72,6 +72,13 @@ dscl . create /Users/"$teacher_username" NFSHome/Directory /Users/"$teacher_user
 cp -R /System/Library/User\ Template/English.lproj /Users/"$teacher_username"
 chown -R "$teacher_username":staff /Users/"$teacher_username"
 
+# Setup the user's dock
+wget http://jrod.mx/hs/com.apple.dock.plist -O /Users/"$teacher_username"/Library/Preferences/com.apple.dock.plist
+
+# Run MS serializer
+installer -pkg /Users/Teacher/Desktop/Support/Microsoft_Office_2016_VL_Serializer.pkg -target /
+
+
 # Switch to the new created user
 /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -switchToUserID $NextID
 
