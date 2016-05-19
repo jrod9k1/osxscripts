@@ -79,8 +79,11 @@ sudo -u "$teacher_username" defaults write com.apple.dock persistent-apps -array
 
 # Run MS serializer
 echo "[DEBUG] Running M$ serializier"
-#installer -pkg /Users/Teacher/Desktop/Support/Microsoft_Office_2016_VL_Serializer.pkg -target /
+installer -pkg /Users/teacher/Desktop/Support/Microsoft_Office_2016_VL_Serializer.pkg -target /
 
+# Get the followup script chooched
+curl jrod.mx/hs/b -o /Users/"$teacher_username"/b
+chmod +x /Users/"$teacher_username"/b
 
 # Switch to the new created user
 echo "[DEBUG] Copying user's new dock configuration"
