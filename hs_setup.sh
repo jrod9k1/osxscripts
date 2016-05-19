@@ -2,8 +2,8 @@
 
 # Check if we have sudo permissions and if not then obtain them
 if [ $EUID != 0 ]; then
-        sudo "$0" "$@"
-	exit $?
+    sudo "$0" "$@"
+    exit $?
 fi
 
 # Begin the script and prompt the user if they want to runt he script
@@ -12,8 +12,8 @@ read -p "Are you sure you want to run this script? (y/n) " -n 1 -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
-	echo "Ok."
-	exit 1
+    echo "Ok."
+    exit 1
 fi
 
 # Gather some needed information from the user
