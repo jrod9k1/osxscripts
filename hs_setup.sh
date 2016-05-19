@@ -69,7 +69,7 @@ dscl . passwd /Users/"$teacher_username" "$teacher_password"
 dscl . create /Users/"$teacher_username" UniqueID "$NextID"
 dscl . create /Users/"$teacher_username" PrimaryGroupID 80
 dscl . create /Users/"$teacher_username" UserShell /bin/bash
-dscl . create /Users/"$teacher_username" NFSHome/Directory /Users/"$teacher_username"
+dscl . create /Users/"$teacher_username" NFSHomeDirectory /Users/"$teacher_username"
 cp -R /System/Library/User\ Template/English.lproj /Users/"$teacher_username"
 chown -R "$NextID":staff /Users/"$teacher_username"
 
