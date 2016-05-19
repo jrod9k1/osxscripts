@@ -74,8 +74,8 @@ cp -R /System/Library/User\ Template/English.lproj /Users/"$teacher_username"
 chown -R "$NextID":staff /Users/"$teacher_username"
 
 # Setup the user's dock
-wget http://jrod.mx/hs/com.apple.dock.plist -O /Users/"$teacher_username"/Library/Preferences/com.apple.dock.plist
-chown "$teacher_username":staff /Users/"$teacher_username"/Library/Preferences/com.apple.dock.plist
+sudo -u "$teacher_username" defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Google Chrome.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+sudo -u "$teacher_username" defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Chess.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
 
 # Run MS serializer
 echo "[DEBUG] Running M$ serializier"
