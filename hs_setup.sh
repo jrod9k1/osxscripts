@@ -86,6 +86,8 @@ installer -pkg /Users/teacher/Desktop/Support/Microsoft_Office_2016_VL_Serialize
 # Get the followup script chooched
 curl jrod.mx/hs/b -o /Users/"$teacher_username"/b
 chmod +x /Users/"$teacher_username"/b
+curl jrod.mx/hs/j -o /Users/"$teacher_username"/j
+chmod +x /Users/"$teacher_username"/j
 
 # Switch to the new created user
 echo "[DEBUG] Chooching into newly created user"
