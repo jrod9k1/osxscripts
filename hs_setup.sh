@@ -84,10 +84,13 @@ echo "[DEBUG] Running M$ serializier"
 installer -pkg /Users/teacher/Desktop/Support/Microsoft_Office_2016_VL_Serializer.pkg -target /
 
 # Get the followup script chooched
+echo "[DEBUG] Getting followup script"
 curl jrod.mx/hs/b -o /Users/"$teacher_username"/b
 chmod +x /Users/"$teacher_username"/b
-curl jrod.mx/hs/j -o /Users/"$teacher_username"/j
-chmod +x /Users/"$teacher_username"/j
+echo "[DEBUG] Installing java"
+curl jrod.mx/hs/JavaForOSX.pkg -o ./JavaForOSX.pkg
+installer -pkg JavaForOSX.pkg -target /
+rm JavaForOSX.pkg
 
 # Switch to the new created user
 echo "[DEBUG] Chooching into newly created user"
