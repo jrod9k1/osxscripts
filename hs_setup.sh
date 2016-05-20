@@ -44,6 +44,8 @@ echo "[DEBUG] The teacher's last name is $teacher_name_last"
 # Set the hostname to locCode-lastName
 echo "[DEBUG] Setting hostname to $loc_code-$teacher_name_last"
 scutil --set HostName $loc_code-$teacher_name_last
+scutil --set ComputerName $loc_code-$teacher_name_last
+scutil --set LocalHostName $loc_code-$teacher_name_last
 
 # Ggrab the first letter of the teacher's first name for use in username
 teacher_name_firstletter=${teacher_name:0:1}
