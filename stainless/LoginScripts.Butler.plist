@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+      <!-- YOUR SELF-CHOSEN LABEL (TASK ID) HERE -->
+    <string>LoginScripts.Butler.sh</string>
+    <key>ProgramArguments</key>
+    <array>
+          <!-- YOUR LITERAL SCRIPT PATH HERE -->
+        <string>/Users/USERHERE/butler.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>

@@ -2,8 +2,8 @@
 
 # Variables
 
-resource_location="jrod.mx"
-input_file="test.csv"
+resource_loc="jrod.mx"
+input_file="resource/input.csv"
 teacher_password=""
 
 # Do we have sudo?
@@ -12,11 +12,17 @@ if [ $EUID != 0 ]; then
       exit $?
 fi
 
+# Setup resources
+mkdir resource
+curl $resource_loc/stainless/butler.sh -o resource/butler.sh
+curl $resource_loc/stainless/input.csv -o resource/input.csv
+curl $resource_loc/stainless/LoginScripts.Butler.plist -o resource/LoginScripts.Butler.plist
+
 # Gather some data about the machine and compare it with the data file
 
 echo "Welcome to HS Deployment Setup (Stainless)"
-#serial=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
-serial="SC02RJBC9FVH5"
+serial=$(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}')
+#serial="SC02RJBC9FVH5" # This line is for debugging purposes
 echo "[DEBUG] Your SN is $serial"
 teacher_name="$(cat $input_file | grep $serial | awk -F"," '{print $6}')"
 # Remove those damn carriage returns. Knock it off google apps
@@ -80,7 +86,7 @@ dscl . create /Users/"$teacher_username" PrimaryGroupID 80
 dscl . create /Users/"$teacher_username" UserShell /bin/bash
 dscl . create /Users/"$teacher_username" NFSHomeDirectory /Users/"$teacher_username"
 cp -R /System/Library/User\ Template/English.lproj /Users/"$teacher_username"
-chown -R "$NextID":staff /Users/"$teacher_username"
+chown -R "$teacher_username":staff /Users/"$teacher_username"
 
 # Run the M$ Serializer
 echo "[DEBUG] Running M$ serializier"
@@ -94,7 +100,20 @@ echo "[DEBUG] Installing java"
 #rm JavaForOSX.pkg
 echo
 
+# Install the new login script
+echo "[DEBUG] Installing butler script"
+cp resource/butler.sh /Users/$teacher_username/butler.sh
+chown $teacher_username:staff /Users/$teacher_username/butler.sh
+chmod +x /Users/$teacher_username/butler.sh
+mkdir -p /Users/$teacher_username/Library/LaunchAgents/
+cp resource/LoginScripts.Butler.plist /Users/$teacher_username/Library/LaunchAgents/LoginScripts.Butler.plist
+chown -R $teacher_username:staff /Users/$teacher_username/Library/LaunchAgents
+sed -i '' "s|USERHERE|${teacher_username}|" /Users/$teacher_username/butler.sh
+sed -i '' "s|USERHERE|${teacher_username}|" /Users/$teacher_username/Library/LaunchAgents/LoginScripts.Butler.plist
+
+
 # Remove myself
 echo "[DEBUG] Removing myself"
-# rm -- "$0"
+rm -r resource
+rm -- "$0"
 
