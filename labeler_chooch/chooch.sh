@@ -40,7 +40,7 @@ find_serial() {
 	sed -i -e "s/STAFFROLE/${ROLE}/g" ${serial}.html
 	sed -i -e "s/PPISNUMBER/${PPISNUMBER}/g" ${serial}.html
 
-	wkhtmltopdf ${serial}.html ${serial}.pdf
+	wkhtmltopdf ${serial}.html ${serial}.pdf 2> /dev/null
 
 	echo "Printing shipping label now..."
 	lpr -P $printer ${serial}.pdf
